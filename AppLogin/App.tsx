@@ -1,118 +1,150 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState} from 'react';
+import Axios from 'axios';
 import {
+  FlatList,
   SafeAreaView,
-  ScrollView,
-  StatusBar,
+  // StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
   View,
+  Text,
+  Image,
+  TextInput,
+  // Button,
+  Alert,
+  TouchableOpacity,
+  // TouchableHighlight,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+export default function App(this: any) {
+  const [isLoading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [data, setData] = useState([]);
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+  const userLogin = () => {
+    Alert.alert('Login Button Pressed');
+  };
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const req = {
+    email: 'abc@gmail.com',
+    password: 'password',
+  };
+
+  const registerUser = async () => {
+    setLoading(true);
+    await Axios.post('https://reqres.in/api/register', req).then(res => {
+      //setUsers(res.data.results);
+      console.log(req);
+      setLoading(false);
+    });
+    Alert.alert('Register Button Pressed');
+  };
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.container}>
+      <Text style={styles.dummyText}>Dental Care</Text>
+      <Image style={styles.logo} source={require('./logo.png')} />
+      <TextInput
+        textContentType="emailAddress"
+        placeholder="E-mail Address"
+        style={styles.primaryInput}
+      />
+      <TextInput
+        textContentType="password"
+        placeholder="Password"
+        style={styles.primaryInput}
+      />
+      <View style={styles.options}>
+        <TouchableOpacity onPress={() => userLogin()} style={styles.login}>
+          <View>
+            <Text style={{color: 'white', alignSelf: 'center'}}>Login</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => registerUser()}
+          style={styles.register}>
+          <View>
+            <Text style={{color: 'white', alignSelf: 'center'}}>Register</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    height: '100%',
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: 'black',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  logo: {
+    width: 125,
+    height: 125,
+    margin: 'auto',
+    alignSelf: 'center',
+    marginTop: '5%',
+    marginBottom: '5%',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  dummyText: {
+    alignSelf: 'center',
+    width: '70%',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 60,
+    textAlign: 'center',
+    lineHeight: 60,
   },
-  highlight: {
-    fontWeight: '700',
+  primaryInput: {
+    marginTop: '5%',
+    backgroundColor: 'black',
+    alignSelf: 'center',
+    color: 'white',
+    fontSize: 20,
+    textAlign: 'center',
+    width: '70%',
+    margin: 'auto',
+    borderStyle: 'dotted',
+    borderColor: 'white',
+    borderWidth: 2,
+    borderRadius: 30,
+  },
+  options: {
+    marginTop: '10%',
+    marginBottom: '10%',
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'center',
+    gap: 20,
+  },
+  login: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: 'red',
+    alignSelf: 'center',
+    marginHorizontal: '1%',
+    marginBottom: 6,
+    width: '28%',
+  },
+  register: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: 'blue',
+    alignSelf: 'center',
+    marginHorizontal: '1%',
+    marginBottom: 6,
+    width: '28%',
+  },
+  item: {
+    padding: 5,
+    marginVertical: 5,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 20,
   },
 });
-
-export default App;
