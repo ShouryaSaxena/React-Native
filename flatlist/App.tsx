@@ -16,7 +16,7 @@ import {
 import Axios from 'axios';
 export default function App() {
   const [isLoading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
 
   // useEffect(() => {
@@ -33,6 +33,7 @@ export default function App() {
     Axios.get(`https://reqres.in/api/users?page=${currentPage}`).then(res => {
       //setUsers(res.data.results);
       setData(res.data.data);
+      console.log(res.data.data);
       setLoading(false);
     });
   };
@@ -88,7 +89,7 @@ export default function App() {
   // }
 
   const renderItem = ({item}) => {
-    console.log('item', item);
+    //console.log('item', item);
     return (
       <View>
         <View style={styles.imgContainer}>
@@ -120,7 +121,7 @@ export default function App() {
 
   const renderLoader = () => {
     return isLoading ? (
-      <View style={styles.loaderStyle}>
+      <View>
         <ActivityIndicator size="large" color="#aaa" />
       </View>
     ) : null;
