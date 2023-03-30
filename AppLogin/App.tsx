@@ -27,7 +27,7 @@ export default function App(this: any) {
   };
 
   const req = {
-    email: 'abc@reqres.com',
+    email: 'abc@gmail.com',
     password: 'password',
   };
 
