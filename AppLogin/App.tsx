@@ -33,12 +33,16 @@ export default function App(this: any) {
 
   const registerUser = async () => {
     setLoading(true);
+    await Axios.get('https://reqres.in/api/register').then(res => {
+      console.log(res.data.data);
+    });
+    Alert.alert('Register Button Pressed');
+
     await Axios.post('https://reqres.in/api/register', req).then(res => {
       //setUsers(res.data.results);
       console.log(req);
       setLoading(false);
     });
-    Alert.alert('Register Button Pressed');
   };
   return (
     <View style={styles.container}>
