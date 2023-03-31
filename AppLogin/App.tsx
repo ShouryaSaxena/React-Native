@@ -1,11 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Axios from 'axios';
 import {
   FlatList,
   SafeAreaView,
-  // StatusBar,
+  StatusBar,
   StyleSheet,
   View,
   Text,
@@ -13,6 +14,7 @@ import {
   TextInput,
   // Button,
   Alert,
+  ActivityIndicator,
   TouchableOpacity,
   // TouchableHighlight,
 } from 'react-native';
@@ -22,28 +24,92 @@ export default function App(this: any) {
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
 
-  const userLogin = () => {
-    Alert.alert('Login Button Pressed');
-  };
-
   const req = {
-    email: 'abc@gmail.com',
-    password: 'password',
+    email: 'eve.holt@reqres.in',
+    password: 'pistol',
   };
 
-  const registerUser = async () => {
+  const getresults = () => {
     setLoading(true);
-    await Axios.get('https://reqres.in/api/register').then(res => {
+    Axios.get('https://reqres.in/api/login').then(res => {
+      setData(res.data.data);
       console.log(res.data.data);
+      setLoading(false);
     });
-    Alert.alert('Register Button Pressed');
+  };
 
-    await Axios.post('https://reqres.in/api/register', req).then(res => {
+  const userLogin = async () => {
+    setLoading(true);
+    await Axios.post('https://reqres.in/api/login', req).then(res => {
       //setUsers(res.data.results);
       console.log(req);
       setLoading(false);
     });
+    await getresults;
+    Alert.alert('Login Button Pressed');
   };
+
+  const registerUser = async () => {
+    setLoading(true);
+
+    await Axios.post('https://reqres.in/api/register', req)
+      .then(res => {
+        //setUsers(res.data.results);
+        console.log(req);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.log(JSON.stringify(error));
+      });
+    await getresults;
+    Alert.alert('Register Button Pressed');
+  };
+
+  const renderItem = ({item}) => {
+    //console.log('item', item);
+    return (
+      <View>
+        <TouchableOpacity
+          onPress={() => {
+            Alert.alert(`id: ${item.pantone_value}`);
+          }}>
+          <Text style={styles.content}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 30,
+                color: 'white',
+                marginBottom: 10,
+              }}>
+              Bio Data: #{item.id}
+            </Text>
+          </Text>
+          <Text style={styles.name}>
+            Name: {item.first_name} {item.last_name}
+          </Text>
+          <Text style={styles.name}>Year: {item.year}</Text>
+          <Text style={styles.name}>Color: {item.color}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const renderLoader = () => {
+    return isLoading ? (
+      <View>
+        <ActivityIndicator size="large" color="#aaa" />
+      </View>
+    ) : null;
+  };
+
+  const loadMoreItem = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  useEffect(() => {
+    // getresults();
+  }, [currentPage]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.dummyText}>Dental Care</Text>
@@ -150,5 +216,30 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
+  },
+  content: {
+    alignSelf: 'center',
+    color: 'white',
+    backgroundColor: 'grey',
+    fontSize: 25,
+    paddingLeft: 10,
+    width: 250,
+  },
+  name: {
+    alignSelf: 'center',
+    color: 'white',
+    backgroundColor: 'grey',
+    fontSize: 20,
+    paddingLeft: 10,
+    width: 250,
+  },
+  email: {
+    alignSelf: 'center',
+    color: 'white',
+    marginBottom: 50,
+    backgroundColor: 'grey',
+    fontSize: 20,
+    paddingLeft: 10,
+    width: 250,
   },
 });
