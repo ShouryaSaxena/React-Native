@@ -1,8 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
 import React, { useState} from 'react';
 import {
   StyleSheet,
@@ -16,10 +14,11 @@ import {
 import Axios from 'axios';
 import UserLogin from './UserLogin';
 import UserRegister from './UserRegister';
+import Password from '../components/Password';
+// import uPassword from '../components/Password';
 
 export default function HomeScreen({navigation}) {
   const [uEmail, setEmail] = useState('');
-  const [uPassword, setPassword] = useState('');
   return (
     <View style={styles.container}>
       <Text style={styles.dummyText}>Dental Care</Text>
@@ -32,21 +31,14 @@ export default function HomeScreen({navigation}) {
         defaultValue={uEmail}
         style={styles.primaryInput}
       />
-      <TextInput
-        onChangeText={newPass => setPassword(newPass)}
-        textContentType="password"
-        placeholder="Password"
-        placeholderTextColor={'white'}
-        defaultValue={uPassword}
-        style={styles.primaryInput}
-      />
+      <Password/>
       <View style={styles.options}>
         <TouchableOpacity
           onPress={async () => {
             // console.log(uEmail, uPassword);
             const req = {
               email: uEmail.toLocaleLowerCase(),
-              password: uPassword,
+              password: 'pistol',
             };
             await Axios.post('https://reqres.in/api/login', req)
               .then(async res => {
@@ -70,7 +62,7 @@ export default function HomeScreen({navigation}) {
           onPress={async () => {
             const req = {
               email: uEmail.toLowerCase(),
-              password: uPassword,
+              password: 'pistol',
             };
             await Axios.post('https://reqres.in/api/register', req)
               .then(async res => {

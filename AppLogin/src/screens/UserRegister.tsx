@@ -59,7 +59,7 @@ export default function UserRegister() {
                         color: 'white',
                         marginBottom: 10,
                       }}>
-                      Resource #{item.id}
+                      Resource   #{item.id}
                     </Text>
                   </Text>
                   <Text style={styles.name}>Name: {item.name}</Text>
@@ -80,45 +80,43 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignContent: 'center',
-    backgroundColor: 'black',
+    backgroundColor: 'turquoise',
   },
   title: {
-    fontSize: 20,
+    fontSize: 32,
+    padding: '5%',
+    color: 'black',
+    fontWeight: 'bold',
+    fontFamily: 'serif',
   },
   content: {
     alignSelf: 'center',
     color: 'white',
-    backgroundColor: 'grey',
+    backgroundColor: '#000000',
     fontSize: 25,
-    paddingLeft: 10,
+    paddingLeft: 30,
     paddingBottom: 5,
     width: 250,
+    borderTopLeftRadius: 30,
   },
   name: {
     alignSelf: 'center',
     color: 'white',
-    backgroundColor: 'grey',
+    backgroundColor: '#6D5D66',
     fontSize: 20,
-    paddingLeft: 10,
-    width: 250,
-  },
-  email: {
-    alignSelf: 'center',
-    color: 'white',
-    marginBottom: 100,
-    backgroundColor: 'grey',
-    fontSize: 20,
-    paddingLeft: 10,
+    paddingLeft: 30,
     width: 250,
   },
   color: {
     alignSelf: 'center',
     color: 'white',
     marginBottom: 20,
-    backgroundColor: 'grey',
+    backgroundColor: '#6D5D66',
     fontSize: 20,
-    paddingLeft: 10,
+    paddingLeft: 30,
+    paddingBottom: 5,
     width: 250,
+    borderBottomRightRadius: 30,
   },
   head: {
     display: 'flex',
