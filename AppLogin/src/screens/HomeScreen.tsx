@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -19,6 +19,7 @@ import Password from '../components/Password';
 
 export default function HomeScreen({navigation}) {
   const [uEmail, setEmail] = useState('');
+  const [uPassword, setPassword] = useState('');
   return (
     <View style={styles.container}>
       <Text style={styles.dummyText}>Dental Care</Text>
@@ -31,14 +32,19 @@ export default function HomeScreen({navigation}) {
         defaultValue={uEmail}
         style={styles.primaryInput}
       />
-      <Password/>
+      <Password
+        setValue={(value: any) => {
+          console.log(value);
+          setPassword(value);
+        }}
+      />
       <View style={styles.options}>
         <TouchableOpacity
           onPress={async () => {
             // console.log(uEmail, uPassword);
             const req = {
               email: uEmail.toLocaleLowerCase(),
-              password: 'pistol',
+              password: uPassword,
             };
             await Axios.post('https://reqres.in/api/login', req)
               .then(async res => {
