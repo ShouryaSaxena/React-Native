@@ -14,13 +14,14 @@ import {
   Alert,
 } from 'react-native';
 import Axios from 'axios';
+import { API } from '../services/axios/ApiDetails';
 
 export default function UserLogin() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    Axios.get('https://reqres.in/api/login')
+    Axios.get(API.LOGIN)
       .then(({data}) => {
         console.log('defaultApp -> data', data.data);
         setData(data.data);

@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
@@ -8,13 +7,10 @@ import {
   Text,
   Image,
   TextInput,
-  Alert,
   TouchableOpacity,
 } from 'react-native';
-import Axios from 'axios';
-import UserLogin from './UserLogin';
-import UserRegister from './UserRegister';
 import Password from '../components/Password';
+import {Login_Post, Register_Post} from '../services/axios/HomeScreenServices';
 // import uPassword from '../components/Password';
 
 export default function HomeScreen({navigation}) {
@@ -35,7 +31,11 @@ export default function HomeScreen({navigation}) {
       <Password
         setValue={(value: any) => {
           console.log(value);
-          setPassword(value);
+          if (value === 'pistol') {
+            setPassword(value);
+          } else {
+            setPassword('');
+          }
         }}
       />
       <View style={styles.options}>
@@ -46,18 +46,7 @@ export default function HomeScreen({navigation}) {
               email: uEmail.toLocaleLowerCase(),
               password: uPassword,
             };
-            await Axios.post('https://reqres.in/api/login', req)
-              .then(async res => {
-                //setUsers(res.data.results);
-                console.log(req);
-                Alert.alert(`Login Successful for ${req.email}`);
-                UserLogin;
-                navigation.navigate('Login');
-              })
-              .catch(error => {
-                console.log(error);
-                Alert.alert('Authentication Failed');
-              });
+            Login_Post({navigation},req);
           }}
           style={styles.login}>
           <View>
@@ -68,19 +57,9 @@ export default function HomeScreen({navigation}) {
           onPress={async () => {
             const req = {
               email: uEmail.toLowerCase(),
-              password: 'pistol',
+              password: uPassword,
             };
-            await Axios.post('https://reqres.in/api/register', req)
-              .then(async res => {
-                //setUsers(res.data.results);
-                console.log(req);
-                Alert.alert('Registration Successful');
-                UserRegister;
-                navigation.navigate('Register');
-              })
-              .catch(error => {
-                Alert.alert('Authentication Failed');
-              });
+            Register_Post({navigation},req);
           }}
           style={styles.register}>
           <View>
