@@ -30,7 +30,7 @@ export async function Register_Post({navigation}, req: any) {
         console.log(req);
         Alert.alert(`Login Successful for ${req.email}`);
         UserRegister;
-        navigation.navigate('Login');
+        navigation.navigate('Register');
       })
       .catch(error => {
         console.log(JSON.stringify(error));
