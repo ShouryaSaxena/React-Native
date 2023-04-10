@@ -23,8 +23,8 @@ export async function Login_Post({navigation},req: any) {
 }
 
 export async function Register_Post({navigation}, req: any) {
-    console.log(API.LOGIN);
-    await Axios.post(API.LOGIN, req)
+    console.log(API.REGISTER);
+    await Axios.post(API.REGISTER, req)
       .then(async res => {
         //setUsers(res.data.results);
         console.log(req);
