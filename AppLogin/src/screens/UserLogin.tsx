@@ -14,18 +14,14 @@ import {
   Alert,
 } from 'react-native';
 import Axios from 'axios';
-import { API } from '../services/axios/ApiDetails';
+import {API} from '../services/axios/ApiDetails';
+import {GET} from '../services/axios/HomeScreenServices';
 
 export default function UserLogin() {
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
 
   useEffect(() => {
-    Axios.get(API.LOGIN)
-      .then(({data}) => {
-        console.log('defaultApp -> data', data.data);
-        setData(data.data);
-      })
+    GET(API.LOGIN)
       .catch(error => console.error(error))
       .finally(() => setLoading(false));
   }, []);
@@ -123,4 +119,3 @@ const styles = StyleSheet.create({
     display: 'flex',
   },
 });
-

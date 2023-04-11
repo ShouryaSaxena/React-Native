@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
@@ -8,9 +9,14 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import Password from '../components/Password';
-import {Login_Post, Register_Post} from '../services/axios/HomeScreenServices';
+import Axios from 'axios';
+// import {Login_Post, Register_Post} from '../services/axios/HomeScreenServices';
+import {API} from '../services/axios/ApiDetails';
+import { POST } from '../services/axios/HomeScreenServices';
+// import UserLogin from './UserLogin';
 // import uPassword from '../components/Password';
 
 export default function HomeScreen({navigation}) {
@@ -46,7 +52,11 @@ export default function HomeScreen({navigation}) {
               email: uEmail.toLocaleLowerCase(),
               password: uPassword,
             };
-            Login_Post({navigation},req);
+            //console.log(API.LOGIN);
+            const response = await POST(API.LOGIN, req).then(res => {
+              navigation.navigate('Login');
+            });
+            //console.log(JSON.stringify(response));
           }}
           style={styles.login}>
           <View>
@@ -59,7 +69,9 @@ export default function HomeScreen({navigation}) {
               email: uEmail.toLowerCase(),
               password: uPassword,
             };
-            Register_Post({navigation},req);
+            const response = await POST(API.REGISTER, req).then(res => {
+              navigation.navigate('Register');
+            });
           }}
           style={styles.register}>
           <View>
