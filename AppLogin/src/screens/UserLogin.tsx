@@ -1,7 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
@@ -13,17 +12,19 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import Axios from 'axios';
 import {API} from '../services/axios/ApiDetails';
-import {GET} from '../services/axios/HomeScreenServices';
+// import {GET} from '../services/axios/HomeScreenServices';
+import { services } from '../services/axios/HTTP_Services';
 
 export default function UserLogin() {
   const [isLoading, setLoading] = useState(true);
+  // const [data, setData] = useState<null | String[]>();
 
   useEffect(() => {
-    GET(API.LOGIN)
-      .catch(error => console.error(error))
-      .finally(() => setLoading(false));
+    const data = services.getService(API.LOGIN);
+    console.log(data);
+    // console.log(data.data);
+    // setData(data);
   }, []);
 
   return (

@@ -1,24 +1,31 @@
 /* eslint-disable prettier/prettier */
 // import {Alert} from 'react-native';
 import Axios from 'axios';
-import {useState} from 'react';
 // import UserLogin from '../../screens/UserLogin';
 // import UserRegister from '../../screens/UserRegister';
 
-export async function POST(Api: any, req: any) {
-  Axios.post(Api, req).then(res => {
-    console.log(req);
-    return res;
-  });
+class HTTP_Services {
+  constructor () {
+  }
+  static get instance() {
+    return new HTTP_Services();
+  }
+    public postService(Api: any, req: any) {
+    Axios.post(Api, req).then(res => {
+      console.log(req);
+      console.log(res.data);
+      return res;
+    });
+  }
+  public getService(Api: any) {
+    Axios.get(Api).then((res) => {
+      // console.log('defaultApp -> data', res.data);
+      return res.data;
+    });
+  }
 }
 
-export async function GET(Api: any) {
-  const [data, setData] = useState([]);
-  Axios.get(Api).then(({data}) => {
-    console.log('defaultApp -> data', data.data);
-    setData(data.data);
-  });
-}
+export const services = HTTP_Services.instance;
 
 // export async function Register_Post({navigation}, req: any) {
 //   console.log(API.REGISTER);

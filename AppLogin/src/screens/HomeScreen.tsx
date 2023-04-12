@@ -12,12 +12,19 @@ import {
   Alert,
 } from 'react-native';
 import Password from '../components/Password';
-import Axios from 'axios';
 // import {Login_Post, Register_Post} from '../services/axios/HomeScreenServices';
 import {API} from '../services/axios/ApiDetails';
-import { POST } from '../services/axios/HomeScreenServices';
+import {services} from '../services/axios/HTTP_Services';
+// import {POST} from '../services/axios/HTTP_Services';
 // import UserLogin from './UserLogin';
 // import uPassword from '../components/Password';
+
+
+
+// const user = {
+//   email: 'eve.holt@reqres.in',
+//   password: 'pistol',
+// };
 
 export default function HomeScreen({navigation}) {
   const [uEmail, setEmail] = useState('');
@@ -52,10 +59,15 @@ export default function HomeScreen({navigation}) {
               email: uEmail.toLocaleLowerCase(),
               password: uPassword,
             };
+            const login = await services.postService(API.LOGIN, req);
+            console.log(login);
+            navigation.navigate('Login');
             //console.log(API.LOGIN);
-            const response = await POST(API.LOGIN, req).then(res => {
-              navigation.navigate('Login');
-            });
+            // if (req === user) {
+            //   const login = await services.postService(API.LOGIN, req);
+            // } else {
+            //   Alert.alert('Authentication Failed');
+            // }
             //console.log(JSON.stringify(response));
           }}
           style={styles.login}>
@@ -69,9 +81,15 @@ export default function HomeScreen({navigation}) {
               email: uEmail.toLowerCase(),
               password: uPassword,
             };
-            const response = await POST(API.REGISTER, req).then(res => {
-              navigation.navigate('Register');
-            });
+            const register = await POST(API.REGISTER, req)
+              .then(() => {
+                Alert.alert('Registered Successfully');
+                navigation.navigate('Register');
+              })
+              .catch(error => {
+                console.log(error);
+                Alert.alert('Authentication Failed');
+              });
           }}
           style={styles.register}>
           <View>
