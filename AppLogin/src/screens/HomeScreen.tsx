@@ -19,8 +19,6 @@ import {services} from '../services/axios/HTTP_Services';
 // import UserLogin from './UserLogin';
 // import uPassword from '../components/Password';
 
-
-
 // const user = {
 //   email: 'eve.holt@reqres.in',
 //   password: 'pistol',
@@ -81,15 +79,9 @@ export default function HomeScreen({navigation}) {
               email: uEmail.toLowerCase(),
               password: uPassword,
             };
-            const register = await POST(API.REGISTER, req)
-              .then(() => {
-                Alert.alert('Registered Successfully');
-                navigation.navigate('Register');
-              })
-              .catch(error => {
-                console.log(error);
-                Alert.alert('Authentication Failed');
-              });
+            const register = await services.postService(API.REGISTER, req);
+            console.log(register);
+            navigation.navigate('Register');
           }}
           style={styles.register}>
           <View>

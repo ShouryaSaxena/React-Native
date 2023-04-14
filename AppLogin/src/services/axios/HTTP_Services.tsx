@@ -10,18 +10,21 @@ class HTTP_Services {
   static get instance() {
     return new HTTP_Services();
   }
-    public postService(Api: any, req: any) {
-    Axios.post(Api, req).then(res => {
+    public async postService(Api: any, req: any) {
+    await Axios.post(Api, req).then(res => {
       console.log(req);
       console.log(res.data);
       return res;
-    });
+    }).catch((error) => {console.log(error);});
   }
-  public getService(Api: any) {
-    Axios.get(Api).then((res) => {
+  public async getService(Api: any) {
+    let data = null;
+    await Axios.get(Api).then((res) => {
       // console.log('defaultApp -> data', res.data);
-      return res.data;
-    });
+      data = res.data.data;
+    }).catch((error) => {console.log(error);});
+    // console.log(data);
+    return data;
   }
 }
 

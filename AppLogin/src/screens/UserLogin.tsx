@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
 import {
@@ -14,17 +15,20 @@ import {
 } from 'react-native';
 import {API} from '../services/axios/ApiDetails';
 // import {GET} from '../services/axios/HomeScreenServices';
-import { services } from '../services/axios/HTTP_Services';
+import {services} from '../services/axios/HTTP_Services';
 
 export default function UserLogin() {
   const [isLoading, setLoading] = useState(true);
-  // const [data, setData] = useState<null | String[]>();
+  const [data, setData] = useState<null | String[]>();
 
   useEffect(() => {
-    const data = services.getService(API.LOGIN);
-    console.log(data);
+    services.getService(API.LOGIN).then(data => {
+      console.log(data);
+      setData(data);
+      setLoading(false);
+      Alert.alert('Login Successful');
+    });
     // console.log(data.data);
-    // setData(data);
   }, []);
 
   return (

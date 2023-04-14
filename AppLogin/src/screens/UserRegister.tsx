@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-native/no-inline-styles */
@@ -13,20 +14,21 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import Axios from 'axios';
+import {API} from '../services/axios/ApiDetails';
+// import {GET} from '../services/axios/HomeScreenServices';
+import { services } from '../services/axios/HTTP_Services';
 
 export default function UserRegister() {
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<null | String[]>();
 
   useEffect(() => {
-    Axios.get('https://reqres.in/api/register')
-      .then(({data}) => {
-        console.log('defaultApp -> data', data.data);
-        setData(data.data);
-      })
-      .catch(error => console.error(error))
-      .finally(() => setLoading(false));
+    services.getService(API.REGISTER).then(data => {
+      console.log(data);
+      setData(data);
+      setLoading(false);
+      Alert.alert('Registration Successful');
+    });
   }, []);
 
   return (
