@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-native/no-inline-styles */
@@ -61,7 +60,7 @@ export default function UserRegister() {
                         color: 'white',
                         marginBottom: 10,
                       }}>
-                      Resource   #{item.id}
+                      Resource #{item.id}
                     </Text>
                   </Text>
                   <Text style={styles.name}>Name: {item.name}</Text>
@@ -100,6 +99,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     width: 250,
     borderTopLeftRadius: 30,
+    marginTop: 10,
   },
   name: {
     alignSelf: 'center',
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   color: {
     alignSelf: 'center',
     color: 'white',
-    marginBottom: 20,
+    marginBottom: 10,
     backgroundColor: '#6D5D66',
     fontSize: 20,
     paddingLeft: 30,

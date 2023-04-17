@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
 import {
@@ -16,6 +15,7 @@ import {
 import {API} from '../services/axios/ApiDetails';
 // import {GET} from '../services/axios/HomeScreenServices';
 import {services} from '../services/axios/HTTP_Services';
+import FetchComponent from './UserDisplay';
 
 export default function UserLogin() {
   const [isLoading, setLoading] = useState(true);
@@ -51,7 +51,8 @@ export default function UserLogin() {
               <View>
                 <TouchableOpacity
                   onPress={() => {
-                    Alert.alert(`Pantone_value: ${item.pantone_value}`);
+                    // Alert.alert(`Pantone_value: ${item.pantone_value}`);
+                    FetchComponent;
                   }}>
                   <Text style={styles.content}>
                     <Text
@@ -100,6 +101,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     width: 250,
     borderTopLeftRadius: 30,
+    marginTop: 10,
   },
   name: {
     alignSelf: 'center',
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
   color: {
     alignSelf: 'center',
     color: 'white',
-    marginBottom: 20,
+    marginBottom: 10,
     backgroundColor: '#6D5D66',
     fontSize: 20,
     paddingLeft: 30,
