@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import {StyleSheet, TextInput} from 'react-native';
 // import { MaterialCommunityIcons } from '@expo/vector-icons';
