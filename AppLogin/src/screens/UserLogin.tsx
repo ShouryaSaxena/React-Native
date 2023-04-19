@@ -51,8 +51,7 @@ export default function UserLogin() {
               <View>
                 <TouchableOpacity
                   onPress={() => {
-                    // Alert.alert(`Pantone_value: ${item.pantone_value}`);
-                    FetchComponent;
+                    FetchComponent();
                   }}>
                   <Text style={styles.content}>
                     <Text

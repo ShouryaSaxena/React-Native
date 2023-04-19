@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import useFetch from '../hooks/useFetch';
 import {
     ActivityIndicator,
@@ -16,15 +17,24 @@ import {
     // StatusBar,
     Alert,
   } from 'react-native';
+  import { API } from '../services/axios/ApiDetails';
 
-export default function FetchComponent() {
-  const [id, setId] = useState(1);
+export default async function FetchComponent() {
+  // const [id, setId] = useState(1);
+  Alert.alert('Pantone_value');
+
   const [isLoading, setLoading] = useState(true);
-  const {loading, error, value} = useFetch(
-    'https://reqres.in/api/users',
-    {},
-    [],
-  );
+  const [data, setData] = useState<null | String[]>();
+
+  useEffect(() => {
+    useFetch(API.UserData).then(data => {
+      console.log(data);
+      setData(data);
+      setLoading(false);
+      // Alert.alert('Login Successful');
+    });
+    // console.log(data.data);
+  }, []);
 
   return (
         <SafeAreaView style={styles.container}>
