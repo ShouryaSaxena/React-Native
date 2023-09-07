@@ -88,7 +88,7 @@ export default function App() {
   //   );
   // }
 
-  const renderItem = ({item}) => {
+  const renderItem = ({item}: any) => {
     //console.log('item', item);
     return (
       <View>
