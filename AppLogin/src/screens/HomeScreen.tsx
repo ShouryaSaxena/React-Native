@@ -24,7 +24,7 @@ import {services} from '../services/axios/HTTP_Services';
 //   password: 'pistol',
 // };
 
-export default function HomeScreen({navigation}) {
+export default function HomeScreen({navigation}: any) {
   const [uEmail, setEmail] = useState('');
   const [uPassword, setPassword] = useState('');
   return (
@@ -57,7 +57,7 @@ export default function HomeScreen({navigation}) {
               email: uEmail.toLocaleLowerCase(),
               password: uPassword,
             };
-            const login = await services.postService(API.LOGIN, req);
+            const login = await services.postService(API.LOGIN, req)
             console.log(login);
             navigation.navigate('Login');
             //console.log(API.LOGIN);
